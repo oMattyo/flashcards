@@ -2,7 +2,7 @@
 WINDOW_LANGS_FONT = ("Courier", 34, "bold")
 CARD_LANG_FONT = ("Arial", 22, "italic")
 CARD_WORD_FONT = ("Arial", 34, "bold")
-CARD_COS_FONT = ("Arial", 18, "normal")
+LANGUAGE_CB_FONT = ("Arial", 16, "normal")
 BG_COLOR = "#cccccc"
 
 # UI constants
