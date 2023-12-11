@@ -2,14 +2,19 @@ import tkinter
 
 WINDOW_LANGS_FONT = ("Courier", 34, "bold")
 CARD_LANG_FONT = ("Arial", 22, "italic")
-CARD_WORD_FONT = ("Arial", 32, "bold")
-SPEECH_COMPONENT_FONT = ("Arial", 18, "normal")
+CARD_WORD_FONT = ("Arial", 34, "bold")
+CARD_COS_FONT = ("Arial", 18, "normal")
 BG_COLOR = "#cccccc"
 
 THUMB_UP_IMG = "./img/thumbup.png"
 THUMB_DOWN_IMG = "./img/thumbdown.png"
 FLASH_FRONT = "./img/flashcard_front.png"
 FLASH_BACK = "./img/flashcard_back.png"
+
+# TODO - Add functions to handle click events on buttons
+# TODO - Add function to handle card flipping
+# TODO - Add reading from and writing to csv files for words
+# TODO - Allow for text to dynamically change depending on language selected
 
 # Tkinter App - window
 window = tkinter.Tk()
@@ -22,8 +27,8 @@ fl_back_img = tkinter.PhotoImage(file=FLASH_BACK)
 flash_back = canvas.create_image((350, 220), image=fl_back_img)
 card_lang = canvas.create_text((180, 110), text="French", font=CARD_LANG_FONT)
 card_word = canvas.create_text((350, 226), text="Word", font=CARD_WORD_FONT)
-card_speech_component = canvas.create_text((350, 326), 
-                                           text="NOUN", font=SPEECH_COMPONENT_FONT)
+card_cos = canvas.create_text((350, 326), text="NOUN", font=CARD_COS_FONT)
+# TODO - Add combobox dropdown to select languages
 canvas.grid(row=1, column=0, columnspan=3)
 
 # Tkinter Top - label
