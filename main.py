@@ -2,6 +2,8 @@ import tkinter
 from tkinter import ttk
 import constants as c
 
+lang_list = [c.ARABIC, c.CHINESE, c.FRENCH, c.GERMAN, c.JAPANESE, c.SPANISH]
+
 # TODO - Add functions to handle click events on buttons
 # TODO - Add function to handle card flipping
 # TODO - Add reading from and writing to csv files for words
@@ -31,10 +33,9 @@ card_word = canvas.create_text((350, 226), text="Word", font=c.CARD_WORD_FONT)
 canvas.grid(row=1, column=0, columnspan=3)
 
 # Tkinter Language Selection - combobox
-dummy_lang_list = ["arabic", "chinese", "french", "german", "japanese", "spanish"]
 selected_language = tkinter.StringVar()
 lang_cb = ttk.Combobox(window, textvariable=selected_language)
-lang_cb["values"] = [lang for lang in dummy_lang_list]
+lang_cb["values"] = [lang.title() for lang in lang_list]
 lang_cb["state"] = "readonly"
 lang_cb.current(0)
 lang_cb.grid(row=2, column=1, pady=(0,20))
