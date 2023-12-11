@@ -1,13 +1,19 @@
 import tkinter
 from tkinter import ttk
+import pandas
 import constants as c
 
 lang_list = [c.ARABIC, c.CHINESE, c.FRENCH, c.GERMAN, c.JAPANESE, c.SPANISH]
 
-# TODO - Add functions to handle click events on buttons
-# TODO - Add function to handle card flipping
 # TODO - Add reading from and writing to csv files for words
-# TODO - Allow for text to dynamically change depending on language selected
+
+# TODO - Add functions to handle click events on buttons
+def next_card():
+    pass
+
+# TODO - Add function to handle card flipping
+def flip_card():
+    pass
 
 def language_selected(event):
     """Handle the language selection in combobox"""
@@ -50,12 +56,12 @@ top_label = canvas.create_text((350, 30), text="Language - English", font=c.WIND
 
 # ThumbDown - button
 thumb_down_img = tkinter.PhotoImage(file=c.THUMB_DOWN_IMG)
-thumb_down_btn = tkinter.Button(image=thumb_down_img, highlightthickness=0, bg=c.BG_COLOR)
+thumb_down_btn = tkinter.Button(image=thumb_down_img, highlightthickness=0, bg=c.BG_COLOR, command=next_card)
 thumb_down_btn.grid(row=2, column=0, pady=(0, 20))
 
 # ThumbUp - button
 thumb_up_img = tkinter.PhotoImage(file=c.THUMB_UP_IMG)
-thumb_up_btn = tkinter.Button(image=thumb_up_img, highlightthickness=0, bg=c.BG_COLOR)
+thumb_up_btn = tkinter.Button(image=thumb_up_img, highlightthickness=0, bg=c.BG_COLOR, command=next_card)
 thumb_up_btn.grid(row=2, column=2, pady=(0, 20))
 
 
