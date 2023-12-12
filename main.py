@@ -2,12 +2,22 @@ import tkinter
 from tkinter import ttk
 import pandas
 import random
+import os
 import constants as c
 
 lang_list = [c.ARABIC, c.CHINESE, c.FRENCH, c.GERMAN, c.JAPANESE, c.SPANISH]
 to_learn = {}
 current_card = {}
 timer_start = False
+
+def completed():
+    global timer_start, flip_timer
+    window.after_cancel(flip_timer)
+    timer_start = False
+    canvas.itemconfig(card_lang, text="")
+    canvas.itemconfig(card_word, text="List Completed!")
+    thumb_up_btn["state"] = tkinter.DISABLED  
+    thumb_down_btn["state"] = tkinter.DISABLED
 
 def next_card():
     """Pressing thumbs_down.btn or thumbs_up.btn will call this. thumbs_down (directly), thumbs_up through the is_known() fnc"""
@@ -34,14 +44,12 @@ def is_known():
         # Keep track of remaining words. Remove word as Checkmark btn is clicked
         data = pandas.DataFrame(to_learn)
         data.to_csv(f"data/{selected_language.get().lower()}_words_remaining.csv", index=False) # Do this on_save or on exit
+        canvas.itemconfig(remaining_label, text=f"Remaining: {len(to_learn)}")
         next_card()
     else:
-        window.after_cancel(flip_timer)
-        timer_start = False
-        canvas.itemconfig(card_lang, text="")
-        canvas.itemconfig(card_word, text="List Completed!")
-        thumb_up_btn["state"] = tkinter.DISABLED  
-        thumb_down_btn["state"] = tkinter.DISABLED
+        completed()
+        canvas.itemconfig(remaining_label, text=f"Remaining: 0")
+        os.remove(f"data/{selected_language.get().lower()}_words_remaining.csv")
 
 def choose_language(event):
     """Handle the language selection in combobox. Starts flip timer on selection"""
@@ -62,11 +70,11 @@ def choose_language(event):
         lang_df = pandas.read_csv(filepath_or_buffer=f"./data/{lower_language}_nouns.csv")
 
     to_learn = lang_df.to_dict(orient="records")
-    
+    canvas.itemconfig(remaining_label, text=f"Remaining: {len(to_learn)}")
+
     flip_timer = window.after(c.FOUR_SECONDS, func=flip_card)
 
     next_card()
-    print(f"Language selected {selected_language.get()}")
 
 
 # Tkinter App - window
@@ -99,6 +107,9 @@ lang_cb.bind("<<ComboboxSelected>>", choose_language)
 
 # Tkinter Combobox - label
 cb_label = canvas.create_text((350, 388), text="Choose Your Language", font=c.LANGUAGE_CB_FONT)
+
+# Tkinkter Cards Remaining - label
+remaining_label = canvas.create_text((490, 350), text="", font=c.LANGUAGE_CB_FONT)
 
 # Tkinter Top - label
 top_label = canvas.create_text((350, 30), text="Language - English", font=c.WINDOW_LANGS_FONT)
