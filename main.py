@@ -10,6 +10,11 @@ to_learn = {}
 current_card = {}
 timer_start = False
 
+# TODO - Possibly look into to eliminating global variables, not a fan
+# TODO - Consider making this class-based
+# TODO - Consider giving the user the option to choose other .csv files; verb list, or some other theme-based list(s)
+# TODO - Consider giving the user the option to save progress, and then choose another language
+
 def completed():
     global timer_start, flip_timer
     window.after_cancel(flip_timer)
@@ -20,7 +25,7 @@ def completed():
     thumb_down_btn["state"] = tkinter.DISABLED
 
 def next_card():
-    """Pressing thumbs_down.btn or thumbs_up.btn will call this. thumbs_down (directly), thumbs_up through the is_known() fnc"""
+    """Pressing thumbs_down.btn or thumbs_up.btn will call this. thumbs_down (directly), thumbs_up through the is_known() func"""
     global current_card, flip_timer
     window.after_cancel(flip_timer)
 
@@ -41,9 +46,8 @@ def is_known():
     to_learn.remove(current_card)
 
     if len(to_learn) > 0:
-        # Keep track of remaining words. Remove word as Checkmark btn is clicked
         data = pandas.DataFrame(to_learn)
-        data.to_csv(f"data/{selected_language.get().lower()}_words_remaining.csv", index=False) # Do this on_save or on exit
+        data.to_csv(f"data/{selected_language.get().lower()}_words_remaining.csv", index=False)
         canvas.itemconfig(remaining_label, text=f"Remaining: {len(to_learn)}")
         next_card()
     else:
@@ -82,7 +86,7 @@ window = tkinter.Tk()
 window.title("Flashcards - Language App")
 window.config(padx=20, pady=20, bg=c.BG_COLOR)
 
-# Initial flip timer
+# Initial flip timer; starts with a False value
 while timer_start:
     flip_timer = window.after(c.FOUR_SECONDS, func=flip_card)
 
