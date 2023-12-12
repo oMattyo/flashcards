@@ -19,3 +19,7 @@ GERMAN = "german"
 JAPANESE = "japanese"
 SPANISH = "spanish"
 
+# Timer constants
+FIVE_SECONDS = 5000
+FOUR_SECONDS = 4000
+THREE_SECONDS = 3000
