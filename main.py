@@ -10,6 +10,7 @@ current_card = {}
 timer_start = False
 
 def next_card():
+    """Pressing thumbs_down.btn or thumbs_up.btn will call this. thumbs_down (directly), thumbs_up through the is_known() fnc"""
     global current_card, flip_timer
     window.after_cancel(flip_timer)
 
@@ -43,7 +44,7 @@ def is_known():
         thumb_down_btn["state"] = tkinter.DISABLED
 
 def choose_language(event):
-    """Handle the language selection in combobox"""
+    """Handle the language selection in combobox. Starts flip timer on selection"""
     global to_learn, timer_start, flip_timer
     
     timer_start = True
